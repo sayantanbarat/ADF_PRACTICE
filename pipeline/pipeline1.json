@@ -98,6 +98,10 @@
 							],
 							"userProperties": [],
 							"typeProperties": {
+								"expression": {
+									"value": "@less(activity('Get Metadata2').output.lastModified,\nformatDateTime(adddays(utcnow(),-1),'yyyy-MM-ddThh:mm:ssZ'))",
+									"type": "Expression"
+								},
 								"ifTrueActivities": [
 									{
 										"name": "Delete1",
@@ -122,7 +126,7 @@
 													}
 												}
 											},
-											"enableLogging": true,
+											"enableLogging": false,
 											"storeSettings": {
 												"type": "AzureBlobFSReadSettings",
 												"recursive": true,
