@@ -114,7 +114,13 @@
 										"typeProperties": {
 											"dataset": {
 												"referenceName": "Binary1",
-												"type": "DatasetReference"
+												"type": "DatasetReference",
+												"parameters": {
+													"filename": {
+														"value": "@activity('Get Metadata2').output.itemName",
+														"type": "Expression"
+													}
+												}
 											},
 											"enableLogging": true,
 											"storeSettings": {
