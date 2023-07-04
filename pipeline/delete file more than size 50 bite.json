@@ -114,9 +114,15 @@
 										"typeProperties": {
 											"dataset": {
 												"referenceName": "Binary2",
-												"type": "DatasetReference"
+												"type": "DatasetReference",
+												"parameters": {
+													"delete_file_name": {
+														"value": "@activity('Get Metadata2').output.itemName",
+														"type": "Expression"
+													}
+												}
 											},
-											"enableLogging": true,
+											"enableLogging": false,
 											"storeSettings": {
 												"type": "AzureBlobFSReadSettings",
 												"recursive": true,
