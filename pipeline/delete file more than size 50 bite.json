@@ -73,7 +73,8 @@
 									}
 								},
 								"fieldList": [
-									"itemName"
+									"itemName",
+									"size"
 								],
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
@@ -87,7 +88,14 @@
 						{
 							"name": "If Condition1",
 							"type": "IfCondition",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "Get Metadata2",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"userProperties": []
 						}
 					]
