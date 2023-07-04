@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "remove old files from adf",
 	"properties": {
 		"activities": [
 			{
