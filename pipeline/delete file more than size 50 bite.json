@@ -98,6 +98,10 @@
 							],
 							"userProperties": [],
 							"typeProperties": {
+								"expression": {
+									"value": "@greater(activity('Get Metadata2').output.size,20)",
+									"type": "Expression"
+								},
 								"ifTrueActivities": [
 									{
 										"name": "Delete1",
