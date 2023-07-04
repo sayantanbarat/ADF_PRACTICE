@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "trip_data",
+				"fileName": "green_tripdata_2021-01.csv",
 				"fileSystem": "input"
 			}
 		}
