@@ -1,0 +1,73 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText7",
+						"type": "DatasetReference"
+					},
+					"name": "textfile"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable2",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "select1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          {TransactionID       StoreID         ProductID   Quantity      Price} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> textfile",
+				"textfile derive(TransactionID = substring({TransactionID       StoreID         ProductID   Quantity      Price},1,14),",
+				"          StoreID = substring({TransactionID       StoreID         ProductID   Quantity      Price},21,28),",
+				"          ProductID = substring({TransactionID       StoreID         ProductID   Quantity      Price}, 37, 46),",
+				"          Quantity = substring({TransactionID       StoreID         ProductID   Quantity      Price}, 49, 57),",
+				"          Price = substring({TransactionID       StoreID         ProductID   Quantity      Price},63,68)) ~> derivedColumn1",
+				"derivedColumn1 select(mapColumn(",
+				"          TransactionID,",
+				"          StoreID,",
+				"          ProductID,",
+				"          Quantity,",
+				"          Price",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          TransactionID,",
+				"          StoreID,",
+				"          ProductID,",
+				"          Quantity,",
+				"          Price",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}
