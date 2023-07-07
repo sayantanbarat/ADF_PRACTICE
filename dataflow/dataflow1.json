@@ -74,7 +74,7 @@
 				"          trip_type as string,",
 				"          congestion_surcharge as string",
 				"     ),",
-				"     partitionFileNames:['oder_array'],",
+				"     partitionFileNames:['oder_array.csv'],",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
