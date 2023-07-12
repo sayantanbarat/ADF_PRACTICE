@@ -1,0 +1,26 @@
+{
+	"name": "Indiaselection",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"filename1": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().filename1",
+					"type": "Expression"
+				},
+				"fileSystem": "input"
+			}
+		}
+	}
+}
