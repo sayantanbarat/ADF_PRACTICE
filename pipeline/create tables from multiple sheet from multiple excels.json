@@ -158,8 +158,59 @@
 												"disableMetricsCollection": false
 											},
 											"enableStaging": false,
+											"enableSkipIncompatibleRow": true,
 											"translator": {
 												"type": "TabularTranslator",
+												"mappings": [
+													{
+														"source": {
+															"name": "CustomerID",
+															"type": "String",
+															"physicalType": "String"
+														},
+														"sink": {
+															"name": "CustomerID",
+															"type": "String",
+															"physicalType": "String"
+														}
+													},
+													{
+														"source": {
+															"name": "AddressID",
+															"type": "String",
+															"physicalType": "String"
+														},
+														"sink": {
+															"name": "AddressID",
+															"type": "String",
+															"physicalType": "String"
+														}
+													},
+													{
+														"source": {
+															"name": "AddressType",
+															"type": "String",
+															"physicalType": "String"
+														},
+														"sink": {
+															"name": "AddressType",
+															"type": "String",
+															"physicalType": "String"
+														}
+													},
+													{
+														"source": {
+															"name": "Indicator",
+															"type": "String",
+															"physicalType": "String"
+														},
+														"sink": {
+															"name": "Indicator",
+															"type": "String",
+															"physicalType": "String"
+														}
+													}
+												],
 												"typeConversion": true,
 												"typeConversionSettings": {
 													"allowDataTruncation": true,
