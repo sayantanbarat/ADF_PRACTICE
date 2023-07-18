@@ -1,0 +1,37 @@
+{
+	"name": "Excel1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "input"
+			},
+			"sheetIndex": 0,
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "CustomerID",
+				"type": "String"
+			},
+			{
+				"name": "AddressID",
+				"type": "String"
+			},
+			{
+				"name": "AddressType",
+				"type": "String"
+			},
+			{
+				"name": "Indicator",
+				"type": "String"
+			}
+		]
+	}
+}
