@@ -1,0 +1,185 @@
+{
+	"name": "incremental",
+	"properties": {
+		"activities": [
+			{
+				"name": "check date from HWM",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT HwDateTime FROM [dbo].[HighWaterMark]\n",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "sqldb_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"table_name": "HighWaterMark",
+							"schemaname": "dbo"
+						}
+					}
+				}
+			},
+			{
+				"name": "check last run from customer",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "check date from HWM",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT max(modifieddate) lastdate FROM [SalesLT].[Customer]\n",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "sqldb_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"table_name": "Customer",
+							"schemaname": "SalesLT"
+						}
+					}
+				}
+			},
+			{
+				"name": "select incremental rows",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "check last run from customer",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "select * from [SalesLT].[Customer] where modifieddate>'@{activity('check date from HWM').output.firstRow.HwDateTime}' and modifieddate<='@{activity('check last run from customer').output.firstRow.lastdate}'",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "FlattenHierarchy"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "sqldb_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"table_name": "Customer",
+							"schemaname": "SalesLT"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "generic_csv_adls",
+						"type": "DatasetReference",
+						"parameters": {
+							"foldername": "Incermental"
+						}
+					}
+				]
+			},
+			{
+				"name": "Lookup1",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "select incremental rows",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "update [dbo].[HighWaterMark] set HwDateTime='@{activity('check last run from customer').output.firstRow.lastdate}';\nSELECT * FROM [dbo].[HighWaterMark];",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "sqldb_generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"table_name": "HighWaterMark",
+							"schemaname": "dbo"
+						}
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2024-02-08T23:41:47Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
