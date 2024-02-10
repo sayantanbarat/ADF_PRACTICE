@@ -1,0 +1,73 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "fixed_table",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "select1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          {ID            Name                        Age              Salary               Country        } as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive(id = substring({ID            Name                        Age              Salary               Country        }, 1, 2),",
+				"          name = substring({ID            Name                        Age              Salary               Country        }, 15, 27),",
+				"          age = substring({ID            Name                        Age              Salary               Country        }, 42, 3),",
+				"          salary = substring({ID            Name                        Age              Salary               Country        },60,6),",
+				"          country = substring({ID            Name                        Age              Salary               Country        }, 81, 9)) ~> derivedColumn1",
+				"derivedColumn1 select(mapColumn(",
+				"          id,",
+				"          name,",
+				"          age,",
+				"          salary,",
+				"          country",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          id,",
+				"          name,",
+				"          age,",
+				"          salary,",
+				"          country",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}

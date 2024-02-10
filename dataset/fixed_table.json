@@ -1,0 +1,16 @@
+{
+	"name": "fixed_table",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sqldb_ls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "fixed_table"
+		}
+	}
+}
