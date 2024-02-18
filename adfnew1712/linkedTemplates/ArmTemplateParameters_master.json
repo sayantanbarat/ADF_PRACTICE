@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adfnew1712"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"adls2_ls_accountKey": {
+			"value": ""
+		},
+		"adls_ls_accountKey": {
+			"value": ""
+		},
+		"sqldb_ls_connectionString": {
+			"value": ""
+		},
+		"adls2_ls_properties_typeProperties_url": {
+			"value": "https://stgsayan1712.dfs.core.windows.net/"
+		},
+		"adls_ls_properties_typeProperties_url": {
+			"value": "https://stg1712.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
