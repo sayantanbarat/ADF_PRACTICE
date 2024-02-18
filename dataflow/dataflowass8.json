@@ -1,0 +1,82 @@
+{
+	"name": "dataflowass8",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "customer_ds_ass8",
+						"type": "DatasetReference"
+					},
+					"name": "customer"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "customer_even",
+						"type": "DatasetReference"
+					},
+					"name": "EvenCustomer"
+				}
+			],
+			"transformations": [
+				{
+					"name": "filter"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          CustomerID as integer,",
+				"          NameStyle as boolean,",
+				"          Title as string,",
+				"          FirstName as string,",
+				"          MiddleName as string,",
+				"          LastName as string,",
+				"          Suffix as string,",
+				"          CompanyName as string,",
+				"          SalesPerson as string,",
+				"          EmailAddress as string,",
+				"          Phone as string,",
+				"          PasswordHash as string,",
+				"          PasswordSalt as string,",
+				"          rowguid as string,",
+				"          ModifiedDate as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> customer",
+				"customer filter(mod(CustomerID,2)==0) ~> filter",
+				"filter sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     recreate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          CustomerID,",
+				"          NameStyle,",
+				"          Title,",
+				"          FirstName,",
+				"          MiddleName,",
+				"          LastName,",
+				"          Suffix,",
+				"          CompanyName,",
+				"          SalesPerson,",
+				"          EmailAddress,",
+				"          Phone,",
+				"          PasswordHash,",
+				"          PasswordSalt,",
+				"          rowguid,",
+				"          ModifiedDate",
+				"     )) ~> EvenCustomer"
+			]
+		}
+	}
+}
