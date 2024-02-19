@@ -1,0 +1,19 @@
+{
+	"name": "cust_add_parquet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adls2_ls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "assignment8"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
