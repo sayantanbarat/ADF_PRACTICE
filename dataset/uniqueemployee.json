@@ -1,0 +1,19 @@
+{
+	"name": "uniqueemployee",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adls2_ls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "unique",
+				"fileSystem": "assignment8"
+			}
+		},
+		"schema": {}
+	}
+}
