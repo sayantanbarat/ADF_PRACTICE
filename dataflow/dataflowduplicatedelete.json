@@ -1,0 +1,80 @@
+{
+	"name": "dataflowduplicatedelete",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText3",
+						"type": "DatasetReference"
+					},
+					"name": "duplicatrecords"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "distinct_csv",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "aggregate1"
+				},
+				{
+					"name": "surrogateKey1"
+				},
+				{
+					"name": "select2"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          EmployeeID as integer,",
+				"          FirstName as string,",
+				"          LastName as string,",
+				"          Department as string,",
+				"          Salary as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> duplicatrecords",
+				"duplicatrecords aggregate(groupBy(FirstName,",
+				"          LastName,",
+				"          Department,",
+				"          Salary),",
+				"     count = count(EmployeeID)) ~> aggregate1",
+				"aggregate1 keyGenerate(output(count as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> surrogateKey1",
+				"surrogateKey1 select(mapColumn(",
+				"          FirstName,",
+				"          LastName,",
+				"          Department,",
+				"          Salary,",
+				"          EmployeeId = count",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2",
+				"select2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          FirstName,",
+				"          LastName,",
+				"          Department,",
+				"          Salary,",
+				"          EmployeeId",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}
