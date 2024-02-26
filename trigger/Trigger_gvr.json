@@ -1,0 +1,25 @@
+{
+	"name": "Trigger_gvr",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "MetadataDrivenCopyTask_gvr_TopLevel",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 24,
+				"startTime": "2024-02-26T11:59:00Z",
+				"endTime": "2024-02-27T11:59:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}
