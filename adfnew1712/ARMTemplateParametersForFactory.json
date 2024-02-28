@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "adfnew1712"
 		},
+		"AzureDatabricks1_accessToken": {
+			"value": ""
+		},
 		"AzureSqlDatabase1_connectionString": {
 			"value": ""
 		},
@@ -16,6 +19,9 @@
 		},
 		"sqldb_ls_connectionString": {
 			"value": ""
+		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"value": "0228-195702-jpuy8am9"
 		},
 		"adls2_ls_properties_typeProperties_url": {
 			"value": "https://stgsayan1712.dfs.core.windows.net/"
