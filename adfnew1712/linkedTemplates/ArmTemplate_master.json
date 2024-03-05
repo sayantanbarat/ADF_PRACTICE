@@ -37,7 +37,7 @@
 		},
 		"adls_ls_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://stg1712.dfs.core.windows.net/"
+			"defaultValue": "https://stgsayan1712.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",

@@ -27,7 +27,7 @@
 			"value": "https://stgsayan1712.dfs.core.windows.net/"
 		},
 		"adls_ls_properties_typeProperties_url": {
-			"value": "https://stg1712.dfs.core.windows.net/"
+			"value": "https://stgsayan1712.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"value": ""
