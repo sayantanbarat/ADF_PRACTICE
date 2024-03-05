@@ -2357,11 +2357,11 @@
 						"userProperties": [],
 						"typeProperties": {
 							"message": {
-								"value": "@activity('Copy data1').Error.Message",
+								"value": "@activity('Copy data1').error.message",
 								"type": "Expression"
 							},
 							"errorCode": {
-								"value": "@activity('Copy data1').error.code",
+								"value": "2200",
 								"type": "Expression"
 							}
 						}
@@ -2833,7 +2833,8 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "abc.csv",
+						"fileName": "data_7d6a4ac5-0134-472b-a2b1-f56dfea16b56_7b30a314-b273-4d7d-9b24-d0ab7c0c99c5.csv",
+						"folderPath": "assign7q5",
 						"fileSystem": "latest"
 					},
 					"columnDelimiter": ",",
