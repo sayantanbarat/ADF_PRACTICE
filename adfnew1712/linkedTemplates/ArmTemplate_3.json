@@ -92,10 +92,13 @@
 						"userProperties": [],
 						"typeProperties": {
 							"message": {
-								"value": "@activity('Copy data1').output.Error.Message",
+								"value": "@activity('Copy data1').Error.Message",
 								"type": "Expression"
 							},
-							"errorCode": "2200"
+							"errorCode": {
+								"value": "@activity('Copy data1').error.code",
+								"type": "Expression"
+							}
 						}
 					}
 				],
