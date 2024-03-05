@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'adls_ls'"
 		},
+		"linkedService1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'linkedService1'"
+		},
 		"sqldb_ls_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'sqldb_ls'"
@@ -77,6 +81,9 @@
 					},
 					"adls_ls_accountKey": {
 						"value": "[parameters('adls_ls_accountKey')]"
+					},
+					"linkedService1_connectionString": {
+						"value": "[parameters('linkedService1_connectionString')]"
 					},
 					"sqldb_ls_connectionString": {
 						"value": "[parameters('sqldb_ls_connectionString')]"

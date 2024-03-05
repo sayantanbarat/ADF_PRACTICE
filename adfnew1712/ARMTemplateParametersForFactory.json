@@ -17,6 +17,9 @@
 		"adls_ls_accountKey": {
 			"value": ""
 		},
+		"linkedService1_connectionString": {
+			"value": ""
+		},
 		"sqldb_ls_connectionString": {
 			"value": ""
 		},
