@@ -1,8 +1,8 @@
 {
-	"name": "adls_csv",
+	"name": "DelimitedText4",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "adls_ls",
+			"referenceName": "adls2_ls",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
@@ -10,7 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileSystem": "input"
+				"folderPath": "morethan1mb",
+				"fileSystem": "output"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
@@ -19,55 +20,31 @@
 		},
 		"schema": [
 			{
-				"name": "CustomerID",
+				"name": "SalesOrderID",
 				"type": "String"
 			},
 			{
-				"name": "NameStyle",
+				"name": "SalesOrderDetailID",
 				"type": "String"
 			},
 			{
-				"name": "Title",
+				"name": "OrderQty",
 				"type": "String"
 			},
 			{
-				"name": "FirstName",
+				"name": "ProductID",
 				"type": "String"
 			},
 			{
-				"name": "MiddleName",
+				"name": "UnitPrice",
 				"type": "String"
 			},
 			{
-				"name": "LastName",
+				"name": "UnitPriceDiscount",
 				"type": "String"
 			},
 			{
-				"name": "Suffix",
-				"type": "String"
-			},
-			{
-				"name": "CompanyName",
-				"type": "String"
-			},
-			{
-				"name": "SalesPerson",
-				"type": "String"
-			},
-			{
-				"name": "EmailAddress",
-				"type": "String"
-			},
-			{
-				"name": "Phone",
-				"type": "String"
-			},
-			{
-				"name": "PasswordHash",
-				"type": "String"
-			},
-			{
-				"name": "PasswordSalt",
+				"name": "LineTotal",
 				"type": "String"
 			},
 			{
@@ -79,6 +56,5 @@
 				"type": "String"
 			}
 		]
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }
