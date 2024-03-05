@@ -74,11 +74,11 @@
 				"userProperties": [],
 				"typeProperties": {
 					"message": {
-						"value": "@activity('Copy data1').Error.Message",
+						"value": "@activity('Copy data1').error.message",
 						"type": "Expression"
 					},
 					"errorCode": {
-						"value": "@activity('Copy data1').error.code",
+						"value": "2200",
 						"type": "Expression"
 					}
 				}
